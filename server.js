@@ -8,8 +8,8 @@ const app = express();
 app.use(express.json());
 app.use(express.static(__dirname));
 
-
-const MONGO_URI = 'mongodb://ajedro11_db_user:1Q2w3er4t5@cluster0-shard-00-00.sabuwds.mongodb.net:27017,cluster0-shard-00-01.sabuwds.mongodb.net:27017,cluster0-shard-00-02.sabuwds.mongodb.net:27017/mi_aplicacion?ssl=true&replicaSet=atlas-sabuwds-shard-0&authSource=admin&retryWrites=true&w=majority';
+// Borra la línea donde estaba tu contraseña explícita y pon esto:
+const MONGO_URI = process.env.MONGO_URI;
 mongoose.connect(MONGO_URI)
     .then(() => console.log('🚀 Conectado con éxito a MongoDB Atlas'))
     .catch(err => {
