@@ -53,7 +53,7 @@
         successDiv.style.display = 'none';
 
         try {
-            const respuesta = await fetch('/api/register', {
+            const respuesta = await fetch('https://nodejsstest2.onrender.com', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ correo, contraseña })
