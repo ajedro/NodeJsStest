@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <h2>¡Bienvenido al Dashboard!</h2>
+        <p>Hola, <strong id="user-display">Usuario</strong>. Has iniciado sesión correctamente.</p>
+        <button class="logout-btn" id="logout-btn">Cerrar Sesión</button>
+    </div>
+
+    <script>
+        // Validar si el usuario está autenticado localmente
+        const user = localStorage.getItem('user');
+        if (!user) {
+            window.location.href = 'index.html';
+        } else {
+            document.getElementById('user-display').textContent = user;
+        }
+
+        // Salir de la aplicación
+        document.getElementById('logout-btn').addEventListener('click', () => {
+            localStorage.removeItem('user');
+            window.location.href = 'index.html';
+        });
+    </script>
+</body>
+</html>

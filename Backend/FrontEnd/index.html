@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autenticación</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container" id="auth-card">
+        <h2 id="form-title">Iniciar Sesión</h2>
+        <form id="auth-form">
+            <input type="text" id="username" placeholder="Usuario" required>
+            <input type="password" id="password" placeholder="Contraseña" required>
+            <button type="submit" id="submit-btn">Ingresar</button>
+        </form>
+        <a class="toggle-link" id="toggle-auth">¿No tienes cuenta? Regístrate aquí</a>
+    </div>
+
+    <script>
+
+        //const API_URL = 'http://localhost:5000/api'; // Cambiar por tu URL de Render
+
+        const API_URL = 'https://nodejsstest2.onrender.com/api';
+        const form = document.getElementById('auth-form');
+        const formTitle = document.getElementById('form-title');
+        const submitBtn = document.getElementById('submit-btn');
+        const toggleAuth = document.getElementById('toggle-auth');
+        
+        let isLogin = true;
+
+        toggleAuth.addEventListener('click', () => {
+            isLogin = !isLogin;
+            formTitle.textContent = isLogin ? 'Iniciar Sesión' : 'Crear Cuenta';
+            submitBtn.textContent = isLogin ? 'Ingresar' : 'Registrarse';
+            toggleAuth.textContent = isLogin ? '¿No tienes cuenta? Regístrate aquí' : '¿Ya tienes cuenta? Inicia sesión';
+        });
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            const endpoint = isLogin ? '/login' : '/register';
+
+            try {
+                const response = await fetch(`${API_URL}${endpoint}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    alert(data.error || 'Ocurrió un error');
+                    return;
+                }
+
+                if (isLogin) {
+                    // Guardamos la sesión localmente de manera simple
+                    localStorage.setItem('user', data.user);
+                    window.location.href = 'dashboard.html';
+                } else {
+                    alert('Registro completado. Ahora puedes iniciar sesión.');
+                    toggleAuth.click();
+                }
+            } catch (error) {
+                alert('No se pudo conectar con el servidor.');
+            }
+        });
+    </script>
+</body>
+</html>
