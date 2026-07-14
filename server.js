@@ -8,8 +8,8 @@ const app = express();
 app.use(express.json());
 app.use(express.static(__dirname));
 
-const MONGO_URI = 'mongodb://ajedro11_db_user:g4GZk4f38ALrMkLt@cluster0-shard-00-00.sabuwds.mongodb.net:27017,cluster0-shard-00-01.sabuwds.mongodb.net:27017,cluster0-shard-00-02.sabuwds.mongodb.net:27017/mi_aplicacion?ssl=true&replicaSet=atlas-sabuwds-shard-0&authSource=admin&retryWrites=true&w=majority';
-// 2. Modificamos el bloque de conexión para escribir en el archivo log.txt
+
+const MONGO_URI = 'mongodb://ajedro11_db_user:1Q2w3er4t5@cluster0-shard-00-00.sabuwds.mongodb.net:27017,cluster0-shard-00-01.sabuwds.mongodb.net:27017,cluster0-shard-00-02.sabuwds.mongodb.net:27017/mi_aplicacion?ssl=true&replicaSet=atlas-sabuwds-shard-0&authSource=admin&retryWrites=true&w=majority';
 mongoose.connect(MONGO_URI)
     .then(() => console.log('🚀 Conectado con éxito a MongoDB Atlas'))
     .catch(err => {
